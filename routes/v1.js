@@ -1,4 +1,5 @@
-var Router = require('express').Router;
+const express = require('express');
+const Router = express.Router;
 var elasticsearch = require('elasticsearch');
 
 const all = require('predicates').all;
@@ -276,7 +277,7 @@ function addRoutes(app, peliasConfig) {
 
   var routers = {
     index: createRouter([
-      controllers.mdToHTML(peliasConfig.api, './public/apiDoc.md')
+      (req, res) => res.redirect('/frontend')
     ]),
     attribution: createRouter([
       controllers.mdToHTML(peliasConfig.api, './public/attribution.md')
@@ -424,6 +425,7 @@ function addRoutes(app, peliasConfig) {
   app.get ( base + 'search/structured',    routers.structured );
   app.get ( base + 'reverse',              routers.reverse );
   app.get ( base + 'nearby',               routers.nearby );
+  app.use ( '/frontend',                   express.static('node_modules/pelias-compare/dist-api/'));
 
 }
 
