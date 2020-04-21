@@ -57,6 +57,8 @@ The API recognizes the following properties under the top-level `api` key in you
 |`attributionURL`|no| (autodetected)|The full URL to use for the attribution link returned in all Pelias responses. Pelias will attempt to autodetect this host, but it will often be incorrect if, for example, there is a proxy between Pelias and its users. This parameter allows setting a specific URL to avoid any such issues|
 |`accessLog`|*no*||name of the format to use for access logs; may be any one of the [predefined values](https://github.com/expressjs/morgan#predefined-formats) in the `morgan` package. Defaults to `"common"`; if set to `false`, or an otherwise falsy value, disables access-logging entirely.|
 |`relativeScores`|*no*|true|if set to true, confidence scores will be normalized, realistically at this point setting this to false is not tested or desirable
+|`serveCompareFrontend`|*no*|true|if set to true, [pelias compare](https://github.com/pelias/compare) will be served from / and /frontend, pointing at the local instance, to add in on-server debugging. The frontend will look like https://pelias.github.io/compare/
+
 
 A good starting configuration file includes this section (fill in the service and Elasticsearch hosts as needed):
 

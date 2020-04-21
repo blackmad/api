@@ -277,7 +277,8 @@ function addRoutes(app, peliasConfig) {
 
   var routers = {
     index: createRouter([
-      (req, res) => res.redirect('/frontend')
+      peliasConfig.api.serveCompareFrontend ? (_req, res) => res.redirect('/frontend')
+        : controllers.mdToHTML(peliasConfig.api, './public/apiDoc.md')
     ]),
     attribution: createRouter([
       controllers.mdToHTML(peliasConfig.api, './public/attribution.md')
@@ -425,8 +426,10 @@ function addRoutes(app, peliasConfig) {
   app.get ( base + 'search/structured',    routers.structured );
   app.get ( base + 'reverse',              routers.reverse );
   app.get ( base + 'nearby',               routers.nearby );
-  app.use ( '/frontend',                   express.static('node_modules/pelias-compare/dist-api/'));
 
+  if (peliasConfig.api.serveCompareFrontend) {
+    app.use ( '/frontend',                   express.static('node_modules/pelias-compare/dist-api/'));
+  }
 }
 
 /**
