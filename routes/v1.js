@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const path = require('path');
 const requireAll = require('require-all');
-const Router = require('express').Router;
+const express = require('express');
+const { Router } = express;
 const sorting = require('pelias-sorting');
 const elasticsearch = require('elasticsearch');
 const {all, any, not} = require('predicates');
@@ -198,7 +199,7 @@ function addRoutes(app, peliasConfig) {
   var routers = {
     index: createRouter([
       peliasConfig.api.serveCompareFrontend ? (_req, res) => res.redirect('/frontend')
-        : controllers.markdownToHtml((peliasConfig.api, './public/apiDoc.md')
+        : controllers.markdownToHtml(peliasConfig.api, './public/apiDoc.md')
     ]),
     attribution: createRouter([
       controllers.markdownToHtml(peliasConfig.api, './public/attribution.md')
