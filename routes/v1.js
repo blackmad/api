@@ -349,6 +349,9 @@ function addRoutes(app, peliasConfig) {
 
   if (peliasConfig.api.serveCompareFrontend) {
     app.use ( '/frontend',                   express.static('node_modules/pelias-compare/dist-api/'));
+    app.get ( '/frontend/config',            (req, res) => {
+      res.status(200).json(peliasConfig.frontendConfig);
+    });
   }
 }
 
